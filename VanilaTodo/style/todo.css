@@ -7,3 +7,14 @@
 
 .todo__container {
 }
+
+.todo__list__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+  width: 550px;
+  height: 550px;
+  border: 1px solid black;
+}
