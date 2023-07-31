@@ -5,19 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>title</title>
     <link rel="stylesheet" href="style/todo.css" />
-    <script src="todo.js"></script>
+    <script type="module" src="dist/bundle.js"></script>
+    <script type="module" src="todo.js"></script>
   </head>
   <body>
     <div class="wrapper">
       <div class="todo__container">
-        <div>
-          <div class="todo__list__container">
-            <div class="todo__list__title">TODO LIST</div>
-            <form class="todo__form">
-              <input type="text" placeholder="할 일을 입력하세요" />
-              <button>추가</button>
-            </form>
-            <div></div>
+        <div class="todo__list__container">
+          <div class="todo__list__title">TODO LIST</div>
+          <form class="todo__form">
+            <input
+              class="todo__input"
+              type="text"
+              placeholder="할 일을 입력하세요"
+            />
+            <button class="todo__button">추가</button>
+          </form>
+          <div class="todo__list">
+            <div class="todo"></div>
           </div>
         </div>
       </div>
