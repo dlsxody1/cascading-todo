@@ -44,12 +44,29 @@
 .todo__value {
   display: flex;
   justify-content: space-between;
-  border: 1px solid red;
+  border: 1px solid black;
   padding: 5px;
   margin: 10px 0;
 }
 
 .todo__box {
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.button__box {
+}
+
+.button__modify {
+  cursor: pointer;
+  background-color: green;
+  color: white;
+  margin-right: 10px;
+}
+
+.button__delete {
+  cursor: pointer;
   background-color: red;
+  color: white;
 }
