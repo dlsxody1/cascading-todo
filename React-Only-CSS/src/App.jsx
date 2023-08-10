@@ -1,38 +1,49 @@
 import "./style/todo.css";
 import { useEffect, useState } from "react";
 import supabase from "./lib/supabase/supabase";
-import { useQuery } from "react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
+import { useGetQuery, usePostQuery } from "./hooks/useQueryhooks";
 // eslint-disable-next-line no-unused-vars
 
 function App() {
   const { addTodo, deleteTodo, getTodo, updateTodo } = supabase;
   const [inputData, setInputData] = useState("");
   const [todoToggle, setTodoToggle] = useState(false);
-  const { data, refetch } = useQuery(["todo"], getTodo, {
-    refetchOnMount: true,
+  //
+  const queryClient = useQueryClient();
+  const query = ["todo"];
+  const { data } = useQuery(["todo"], getTodo);
+
+  const { mutate } = useMutation((id) => deleteTodo(id), {
+    onSuccess: () => queryClient.invalidateQueries(query),
+    onError: () => {
+      console.log("삭제 실패!");
+    },
   });
 
-  // issue 발생
-  // todo를 삭제했을 때 refetch가 안됨
-  // 시도 1.
-
-  useEffect(() => {
-    refetch();
-  }, [data]);
+  const postMutate = useMutation((inputData) => addTodo(inputData), {
+    onSuccess: () => queryClient.invalidateQueries(query),
+    onError: () => {
+      console.log("추가 실패!");
+    },
+  });
+  const onSubmitValue = (e, todo) => {
+    e.preventDefault();
+    postMutate.mutate(todo);
+    console.log(todo);
+  };
 
   const onChangeValue = (e) => {
     setInputData(e.target.value);
   };
 
-  const onSubmitValue = (e, todo) => {
-    e.preventDefault();
-    addTodo(inputData);
-    console.log("데이터 잘 들어갑니다.");
-  };
-
   const modifyTodo = () => {
     setTodoToggle((prev) => !prev);
-    console.log(todoToggle);
   };
 
   return (
@@ -69,9 +80,7 @@ function App() {
                           </button>
                           <button
                             className="button__delete"
-                            onClick={() => {
-                              deleteTodo(el.id);
-                            }}
+                            onClick={() => mutate(el.id)}
                           >
                             삭제
                           </button>

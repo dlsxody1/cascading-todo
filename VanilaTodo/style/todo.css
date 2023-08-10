@@ -44,7 +44,12 @@
 .todo__value {
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
+  border: 1px solid red;
   padding: 5px;
   margin: 10px 0;
+}
+
+.todo__box {
+  display: flex;
+  background-color: red;
 }
