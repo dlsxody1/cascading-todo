@@ -29,13 +29,14 @@ const deleteTodo = async (id) => {
   if (error) throw error;
 };
 
-const updateTodo = async (id) => {
+const updateTodo = async (todo, id) => {
   const { error } = await supabase
     .from("reacttodo")
     .update({
-      id,
+      todo,
     })
-    .select();
+    .eq("id", id);
+  console.log("업데이트 잘됐음");
   if (error) throw error;
 };
 

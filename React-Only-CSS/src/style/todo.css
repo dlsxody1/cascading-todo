@@ -65,6 +65,12 @@
   margin-right: 10px;
 }
 
+.button__modify__submit {
+  cursor: pointer;
+  background-color: blue;
+  color: white;
+  margin-right: 10px;
+}
 .button__delete {
   cursor: pointer;
   background-color: red;
