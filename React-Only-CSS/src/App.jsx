@@ -56,7 +56,6 @@ function App() {
   const onSubmitValue = (e, todo) => {
     e.preventDefault();
     postMutate.mutate(todo);
-    console.log(todo);
   };
 
   const onChangeValue = (e) => {
