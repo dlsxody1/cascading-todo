@@ -8,6 +8,10 @@ export default withMt({
       height: {
         "100vh": "100vh",
       },
+      backgroundColor: {
+        kakao: "#FEE500",
+        githup: "#444444",
+      },
     },
   },
   plugins: [],

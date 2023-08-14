@@ -1,9 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
+import type { ProviderTypes } from "../../types/LoginProps";
+import { TodoProps } from "../../types/TodoProps";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_API_KEY;
-import { LoginProps } from "../../types/LoginProps";
-import { TodoProps } from "../../types/TodoProps";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_API_KEY);
 
@@ -42,12 +42,11 @@ const updateTodo = async (todo: string, id: string) => {
   if (error) throw error;
 };
 
-export const signIn = async ({ email, password }: LoginProps) => {
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+export const signIn = async (provider: ProviderTypes): Promise<void> => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: provider,
   });
   if (error) throw error;
 };
 
-export default { updateTodo, addTodo, deleteTodo, getTodo };
+export default { updateTodo, addTodo, deleteTodo, getTodo, signIn };

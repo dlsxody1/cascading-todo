@@ -1,18 +1,27 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { signIn } from "../lib/supabase";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useInput = (initState: any) => {
-  const [value, setValue] = useState(initState);
+  const [state, setState] = useState(initState);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+    const { value, name } = e.target;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setState((prevState: any) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>, type: string) => {
     e.preventDefault();
+    if (type === "login") {
+      await signIn(state);
+    }
   };
 
-  return { onChange, onSubmit, value };
+  return { onChange, onSubmit, state };
 };
 
 export { useInput };
