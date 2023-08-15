@@ -26,7 +26,7 @@ const SignIn = () => {
             </div>
           </button>
           <button onClick={() => signIn("google")}>
-            <div className="flex  text-sm whitespace-nowrap items-center border w-48 h-10 rounded-lg p-3 m-4">
+            <div className="flex text-sm whitespace-nowrap items-center border w-48 h-10 rounded-lg p-3 m-4 ">
               <FcGoogle className="mr-3 text-lg" />
               <div>구글로 로그인하기</div>
             </div>

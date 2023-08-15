@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 import type { ProviderTypes } from "../../types/LoginProps";
-import { TodoProps } from "../../types/TodoProps";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_API_KEY = import.meta.env.VITE_SUPABASE_API_KEY;
@@ -15,7 +14,7 @@ const getTodo = async () => {
   return todo;
 };
 
-const addTodo = async (todo: TodoProps) => {
+const addTodo = async (todo: string) => {
   const { error } = await supabase
     .from("vitetodo")
     .insert([{ todo: todo }])
@@ -44,7 +43,7 @@ const updateTodo = async (todo: string, id: string) => {
 
 export const signIn = async (provider: ProviderTypes): Promise<void> => {
   const { error } = await supabase.auth.signInWithOAuth({
-    provider: provider,
+    provider,
   });
   if (error) throw error;
 };
