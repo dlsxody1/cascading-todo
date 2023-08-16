@@ -24,13 +24,13 @@ const addTodo = async (todo: string) => {
   if (error) throw error;
 };
 
-const deleteTodo = async (id: string) => {
+const deleteTodo = async (id: number) => {
   const { error } = await supabase.from("vitetodo").delete().eq("id", id);
 
   if (error) throw error;
 };
 
-const updateTodo = async (todo: string, id: string) => {
+const updateTodo = async (id: number, todo: string) => {
   const { error } = await supabase
     .from("vitetodo")
     .update({
@@ -48,4 +48,23 @@ export const signIn = async (provider: ProviderTypes): Promise<void> => {
   if (error) throw error;
 };
 
-export default { updateTodo, addTodo, deleteTodo, getTodo, signIn };
+export const signWithKakao = async () => {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: "kakao",
+    options: {
+      queryParams: {
+        prompt: "consent",
+      },
+    },
+  });
+  if (error) throw error;
+};
+
+export default {
+  updateTodo,
+  addTodo,
+  deleteTodo,
+  getTodo,
+  signIn,
+  signWithKakao,
+};

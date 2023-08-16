@@ -3,7 +3,7 @@ export interface TodoProps {
 }
 
 export interface ResponseProps {
-  id: string;
+  id: number;
   todo: string;
-  createAt: Date;
+  createdAt: Date;
 }

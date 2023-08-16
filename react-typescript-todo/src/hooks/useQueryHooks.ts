@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import supabase from "../lib/supabase/supabase";
 
 export const useQueryHooks = () => {
@@ -13,15 +13,43 @@ export const useQueryHooks = () => {
     return { data, isLoading };
   };
 
-  const useAddTodoQuery = (todo: string) => {
-    const { mutate } = useMutation(() => addTodo(todo), {
+  const useAddTodoQuery = () => {
+    const { mutate } = useMutation((todo: string) => addTodo(todo), {
       onSuccess: () => queryClient.invalidateQueries(query),
       onError: () => {
         console.log("추가 실패!");
       },
     });
-    return mutate;
+    return { addTodoHandler: mutate };
   };
 
-  return { useGetTodoQuery, useAddTodoQuery };
+  const useDeleteTodoQuery = () => {
+    const { mutate } = useMutation((id: number) => deleteTodo(id), {
+      onSuccess: () => queryClient.invalidateQueries(query),
+      onError: () => {
+        console.log("추가 실패!");
+      },
+    });
+    return { deleteTodoHandler: mutate };
+  };
+
+  const useUpdateTodoQuery = () => {
+    const { mutate } = useMutation(
+      ({ id, todo }: { id: number; todo: string }) => updateTodo(id, todo),
+      {
+        onSuccess: () => queryClient.invalidateQueries(query),
+        onError: () => {
+          console.log("추가 실패!");
+        },
+      }
+    );
+    return { updateTodoHandler: mutate };
+  };
+
+  return {
+    useGetTodoQuery,
+    useAddTodoQuery,
+    useDeleteTodoQuery,
+    useUpdateTodoQuery,
+  };
 };
