@@ -1,8 +1,9 @@
 import { Button, Checkbox } from "@material-tailwind/react";
-import React, { useState } from "react";
 import { useQueryHooks } from "../hooks/useQueryHooks";
 import Loading from "./Loading";
 import { ResponseProps } from "../types/TodoProps";
+import { useCheckout } from "../hooks/useCheckout";
+import { useInput } from "../hooks/useInput";
 
 const TodoBox = () => {
   const { useGetTodoQuery, useDeleteTodoQuery, useUpdateTodoQuery } =
@@ -10,38 +11,14 @@ const TodoBox = () => {
   const { data, isLoading } = useGetTodoQuery();
   const { deleteTodoHandler } = useDeleteTodoQuery();
   const { updateTodoHandler } = useUpdateTodoQuery();
-  const [completedTodos, setCompletedTodos] = useState<number[]>([]);
-  const [modifyInputData, setModifyInputData] = useState("");
-  const [todoToggle, setTodoToggle] = useState({
-    id: 0,
-    toggle: false,
-  });
-
-  const modifyOnChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setModifyInputData(e.target.value);
-    console.log(modifyInputData);
-  };
-
-  const modifyTodo = (id: number) => {
-    setTodoToggle((prev) => {
-      console.log(prev.id);
-      if (prev.id !== id) {
-        return { id: id, toggle: true };
-      } else {
-        return { id, toggle: false };
-      }
-    });
-  };
-
-  const handleCheckboxChange = (id: number) => {
-    if (completedTodos.includes(id)) {
-      setCompletedTodos(
-        completedTodos.filter((completedId) => completedId !== id)
-      );
-    } else {
-      setCompletedTodos([...completedTodos, id]);
-    }
-  };
+  const {
+    toggleCheckBox,
+    checkValue,
+    setCheckValue,
+    changeCheckBox,
+    completedTodos,
+  } = useCheckout();
+  const { onTextChange, state } = useInput("");
 
   return (
     <div>
@@ -54,7 +31,7 @@ const TodoBox = () => {
           할 일이 없습니다~ 오늘 할 일을 적어보세요 !
         </div>
       ) : (
-        data?.map(({ todo, createdAt, id }: ResponseProps) => {
+        data?.map(({ todo, id }: ResponseProps) => {
           const isCompelted = completedTodos.includes(Number(id));
           return (
             <div
@@ -65,26 +42,27 @@ const TodoBox = () => {
               <Checkbox
                 checked={isCompelted}
                 crossOrigin={undefined}
-                onChange={() => handleCheckboxChange(Number(id))}
+                onChange={() => changeCheckBox(Number(id))}
               />
-              {todoToggle.id !== Number(id) || !todoToggle.toggle ? (
+              {checkValue?.id !== Number(id) || !checkValue?.toggle ? (
                 <div className={`${isCompelted ? "line-through" : ""}`}>
                   {todo}
                 </div>
               ) : (
                 <input
-                  onChange={modifyOnChangeValue}
+                  onChange={onTextChange}
                   name={id.toString()}
                   type="text"
                   defaultValue={todo}
                 />
               )}
 
-              <div>{createdAt?.toISOString()}</div>
-              <div className="">
-                {todoToggle.id !== Number(id) || !todoToggle.toggle ? (
+              <div>
+                {checkValue?.id !== Number(id) || !checkValue?.toggle ? (
                   <Button
-                    onClick={() => modifyTodo(Number(id))}
+                    onClick={() => {
+                      toggleCheckBox(Number(id));
+                    }}
                     className="bg-green-400 m-2"
                   >
                     수정
@@ -93,8 +71,9 @@ const TodoBox = () => {
                   <Button
                     className="bg-blue-500"
                     onClick={() => {
-                      updateTodoHandler({ id, todo: modifyInputData });
-                      modifyTodo(Number(id));
+                      updateTodoHandler({ id, todo: state });
+                      toggleCheckBox(Number(id));
+                      setCheckValue(undefined);
                     }}
                   >
                     완료

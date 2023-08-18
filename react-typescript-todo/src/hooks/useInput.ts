@@ -5,7 +5,7 @@ import { signIn } from "../lib/supabase";
 const useInput = (initState: any) => {
   const [state, setState] = useState(initState);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onObjectChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setState((prevState: any) => ({
@@ -14,6 +14,9 @@ const useInput = (initState: any) => {
     }));
   };
 
+  const onTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setState(e.target.value);
+  };
   const onSubmit = async (e: FormEvent<HTMLFormElement>, type: string) => {
     e.preventDefault();
     if (type === "login") {
@@ -21,7 +24,7 @@ const useInput = (initState: any) => {
     }
   };
 
-  return { onChange, onSubmit, state };
+  return { onObjectChange, onTextChange, onSubmit, state };
 };
 
 export { useInput };
