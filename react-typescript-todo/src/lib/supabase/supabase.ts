@@ -52,6 +52,7 @@ export const signWithKakao = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: "kakao",
     options: {
+      redirectTo: "/todo",
       queryParams: {
         prompt: "consent",
       },
