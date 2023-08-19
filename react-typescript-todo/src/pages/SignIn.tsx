@@ -13,19 +13,37 @@ const SignIn = () => {
           회원 가입하고 Todo List를 작성해보세요!
         </Typography>
         <form className="mt-3 flex items-center justify-center flex-col">
-          <button onClick={() => signIn("kakao")}>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              signIn("kakao");
+            }}
+          >
             <div className="flex  text-sm whitespace-nowrap items-center bg-kakao w-48 h-10 rounded-lg p-3 m-4">
               <RiKakaoTalkFill className="mr-3 text-lg" />
               <div>카카오로 로그인하기</div>
             </div>
           </button>
-          <button onClick={() => signIn("github")}>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              signIn("github");
+            }}
+          >
             <div className="flex  text-sm whitespace-nowrap items-center bg-githup text-white w-48 h-10 rounded-lg p-3 m-4">
               <AiFillGithub className="mr-3 text-lg" />
               <div>깃허브로 로그인하기</div>
             </div>
           </button>
-          <button onClick={() => signIn("google")}>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              signIn("google");
+            }}
+          >
             <div className="flex text-sm whitespace-nowrap items-center border w-48 h-10 rounded-lg p-3 m-4 ">
               <FcGoogle className="mr-3 text-lg" />
               <div>구글로 로그인하기</div>
