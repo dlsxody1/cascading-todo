@@ -17,6 +17,7 @@ const useInput = (initState: any) => {
   const onTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setState(e.target.value);
   };
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>, type: string) => {
     e.preventDefault();
     if (type === "login") {
