@@ -6,8 +6,6 @@ Vanila JS, React Only css, React TailwindCSS typescript로 TODO를 만들어 보
 
 React only css Link : https://boisterous-chimera-4a83b6.netlify.app/ <br/>
 React tailwindCSS typescript Link : https://chimerical-kataifi-a5e06a.netlify.app <br />
-++ 현재 supabase측에서 에러가 발생했습니다. 신속하게 해결할 수 있도록 하겠습니다.<br/>
-
 ** 소셜 로그인으로 가입 하시면 todo를 이용할 수 있습니다.
 
 ### 만들고자 한 이유
