@@ -2,6 +2,9 @@
 
 Vanila JS, React Only css, React TailwindCSS typescript로 TODO를 만들어 보았습니다.
 
+React only css Link : https://boisterous-chimera-4a83b6.netlify.app/
+React tailwindCSS typescript Link : https://chimerical-kataifi-a5e06a.netlify.app/todo
+
 ### 만들고자 한 이유
 
 일단 기본적으로 todo는 웹 서비스의 기반이 되는 기능입니다.
