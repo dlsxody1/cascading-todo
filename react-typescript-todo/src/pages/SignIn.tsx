@@ -4,8 +4,10 @@ import { AiFillGithub } from "react-icons/ai";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "../lib/supabase";
+import { currentURL } from "../util/url";
 
 const SignIn = () => {
+  console.log(currentURL);
   return (
     <div className="flex items-center justify-center h-100vh">
       <div className="flex flex-col h-2/3 w-96 p-4 border border-black ">
@@ -17,7 +19,7 @@ const SignIn = () => {
             type="button"
             onClick={(e) => {
               e.preventDefault();
-              signIn("kakao");
+              signIn("kakao", currentURL);
             }}
           >
             <div className="flex  text-sm whitespace-nowrap items-center bg-kakao w-48 h-10 rounded-lg p-3 m-4">
@@ -29,7 +31,7 @@ const SignIn = () => {
             type="button"
             onClick={(e) => {
               e.preventDefault();
-              signIn("github");
+              signIn("github", currentURL);
             }}
           >
             <div className="flex  text-sm whitespace-nowrap items-center bg-githup text-white w-48 h-10 rounded-lg p-3 m-4">
@@ -41,7 +43,7 @@ const SignIn = () => {
             type="button"
             onClick={(e) => {
               e.preventDefault();
-              signIn("google");
+              signIn("google", currentURL);
             }}
           >
             <div className="flex text-sm whitespace-nowrap items-center border w-48 h-10 rounded-lg p-3 m-4 ">

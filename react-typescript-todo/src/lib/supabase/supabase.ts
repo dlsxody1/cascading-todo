@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { Provider, createClient } from "@supabase/supabase-js";
 import type { ProviderTypes } from "../../types/LoginProps";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
@@ -41,24 +41,29 @@ const updateTodo = async (id: number, todo: string) => {
   if (error) throw error;
 };
 
-export const signIn = async (provider: ProviderTypes): Promise<void> => {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider,
-  });
-  if (error) throw error;
-};
+interface ILoginProps {
+  provider: Provider;
+  url: string;
+}
 
-export const signWithKakao = async () => {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: "kakao",
+export const signIn = async (
+  provider: ProviderTypes,
+  url: string
+): Promise<ILoginProps> => {
+  const { error, data } = await supabase.auth.signInWithOAuth({
+    provider,
     options: {
-      redirectTo: "/todo",
-      queryParams: {
-        prompt: "consent",
-      },
+      redirectTo: `${url}todo`,
     },
   });
+
   if (error) throw error;
+  return data;
+};
+
+export const getSocialSession = async () => {
+  const { data } = await supabase.auth.getSession();
+  return data;
 };
 
 export default {
@@ -67,5 +72,5 @@ export default {
   deleteTodo,
   getTodo,
   signIn,
-  signWithKakao,
+  getSocialSession,
 };
