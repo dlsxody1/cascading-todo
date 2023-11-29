@@ -2,8 +2,6 @@
 
 Vanila JS, React Only css, React TailwindCSS typescript로 TODO를 만들어 보았습니다.
 
-++ Next.js , Nest.js 로 만든 TODO가 추가될 예정입니다.
-
 React only css Link : https://boisterous-chimera-4a83b6.netlify.app/ <br/>
 React tailwindCSS typescript Link : https://chimerical-kataifi-a5e06a.netlify.app <br />
 ** 소셜 로그인으로 가입 하시면 todo를 이용할 수 있습니다.
